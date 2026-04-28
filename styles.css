@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#050505" />
+  <title>VYBSTAK OS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&family=Barlow+Condensed:wght@600;700;800&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <canvas id="webgl"></canvas>
+  <div class="grain"></div>
+
+  <div class="shell">
+    <aside class="rail">
+      <div class="mark">V</div>
+      <button class="rail-btn active" data-view="feed">Feed</button>
+      <button class="rail-btn" data-view="vibes">Vibes</button>
+      <button class="rail-btn create" data-view="create">+</button>
+      <button class="rail-btn" data-view="tribes">Tribes</button>
+      <button class="rail-btn" data-view="profile">Profile</button>
+    </aside>
+
+    <main class="phone" id="phone">
+      <section class="view active" id="feed">
+        <header class="topbar">
+          <div>
+            <span class="eyebrow">VYBSTAK OS</span>
+            <h1>The Signal Feed</h1>
+          </div>
+          <button class="icon">Menu</button>
+        </header>
+
+        <article class="hero-card parallax-card">
+          <div class="meta"><span>Founder Signal</span><span>Live Tribe</span></div>
+          <h2>The creator is the asset. Not the product.</h2>
+          <p>A social feed rebuilt around choice, ownership and honest reaction.</p>
+          <div class="signal-actions">
+            <button data-vote="vybz">VYBZ</button>
+            <button data-vote="meh">MEH</button>
+            <button data-vote="nope">NOPE</button>
+          </div>
+        </article>
+
+        <div class="post-grid">
+          <article class="post-card"><div class="thumb t1"></div><h3>Creator Engine loop</h3><p>18 VYBZ, 3 MEH, 1 NOPE</p></article>
+          <article class="post-card"><div class="thumb t2"></div><h3>Valencia build note</h3><p>11 VYBZ, 2 MEH, 0 NOPE</p></article>
+        </div>
+      </section>
+
+      <section class="view" id="vibes">
+        <header class="topbar">
+          <div><span class="eyebrow">ARCHIVE</span><h1>Vibes</h1></div>
+          <button class="accent-text">Select</button>
+        </header>
+        <div class="filters"><button>Newest</button><button>All dates</button><button>All types</button></div>
+        <div class="media-grid" id="mediaGrid"></div>
+      </section>
+
+      <section class="view" id="create">
+        <header class="topbar">
+          <button class="back" data-view="feed">Back</button>
+          <div><span class="eyebrow">CREATOR ENGINE</span><h1>Create Post</h1></div>
+          <button class="accent-text" id="publishBtn">Post</button>
+        </header>
+        <textarea id="caption" placeholder="Write a caption here..."></textarea>
+        <div class="preview-panel">
+          <div class="v-logo">V</div>
+          <button id="enhanceBtn">Enhance with Claude</button>
+        </div>
+        <div class="create-tools">
+          <button data-tool="Text">Aa<span>Text</span></button>
+          <button id="musicBtn">Music<span>Sound</span></button>
+          <button>Cam<span>Camera</span></button>
+          <button>Media<span>Media</span></button>
+        </div>
+        <div class="ai-panel" id="aiPanel"><h3>Claude Intelligence</h3><p id="aiOutput">Write something, then enhance it.</p></div>
+        <div class="music-panel" id="musicPanel"><h3>Deezer Sound Layer</h3><input id="musicSearch" placeholder="Search music, e.g. cinematic electronic" /><button id="searchMusic">Search</button><div id="tracks"></div></div>
+      </section>
+
+      <section class="view" id="tribes">
+        <header class="topbar">
+          <div><span class="eyebrow">PRIVATE WORLDS</span><h1>Tribes</h1></div>
+          <button class="icon">Add</button>
+        </header>
+        <div class="tabs"><span>Feed</span><span class="on">Discover</span></div>
+        <div class="tribe-list">
+          <article class="tribe-card film"><span>Film</span><h2>Film Tribe</h2><p>For storytellers and filmmakers. Create. Shoot. Inspire.</p><button>Join</button></article>
+          <article class="tribe-card music"><span>Music</span><h2>Music Tribe</h2><p>For artists, producers and fans. Make noise. Feel more.</p><button>Join</button></article>
+          <article class="tribe-card founders"><span>V</span><h2>Founders</h2><p>For builders and visionaries. Build. Scale. Lead.</p><button>View</button></article>
+        </div>
+      </section>
+
+      <section class="view" id="profile">
+        <header class="topbar">
+          <div><span class="eyebrow">CREATOR ROOM</span><h1>sebastard</h1></div>
+          <button class="icon">Menu</button>
+        </header>
+        <div class="profile-hero parallax-card"><div class="avatar"></div><h2>Your Name</h2><p>Add a bio</p><button>Edit profile</button></div>
+        <button class="dashboard-card" data-view="score"><div><strong>VYBScore Overview</strong><span>76, Good Vyb</span></div><b>Open</b></button>
+        <div class="tabs"><span class="on">All</span><span>Posts</span><span>Reels</span></div>
+        <div class="mini-grid"><div class="t1"></div><div class="t2"></div><div class="t3"></div></div>
+      </section>
+
+      <section class="view" id="score">
+        <header class="topbar">
+          <button class="back" data-view="profile">Back</button>
+          <div><span class="eyebrow">LAST 30 DAYS</span><h1>VYBScore</h1></div>
+          <span>29 Mar, 28 Apr</span>
+        </header>
+        <div class="score-orb"><div class="orb-core"><strong>76</strong><span>GOOD VYB</span></div><canvas id="scoreCanvas" width="360" height="360"></canvas></div>
+        <div class="metrics" id="metrics"></div>
+        <div class="ai-panel"><h3>Creator Insight</h3><p id="scoreInsight">Your signal is forming. Originality and consistency will lift the next phase.</p><button id="scoreBtn">Ask Claude for insight</button></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
