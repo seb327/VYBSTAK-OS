@@ -3,98 +3,54 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>VYBSTAK Social OS Builder</title>
+  <title>VYBSTAK Social OS</title>
   <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
   <canvas id="atmosphere"></canvas>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="logo-block"><div class="mark">V</div><div><b>VYBSTAK OS</b><span>Social platform builder</span></div></div>
+      <button class="nav active" data-view="builder">Builder</button>
+      <button class="nav" data-view="platform">Platform preview</button>
+      <button class="nav" data-view="posts">Post studio</button>
+      <button class="nav" data-view="marketplace">Templates</button>
+      <button class="nav" data-view="export">Export</button>
+      <footer>Powered by VYBSTAK<br><em>The future belongs to creators</em></footer>
+    </aside>
 
-  <main class="shell">
-    <header class="topbar">
-      <div class="brand-lockup">
-        <div class="mark">V</div>
-        <div>
-          <p class="eyebrow">VYBSTAK OS</p>
-          <h1>Build your own social platform.</h1>
+    <main class="main">
+      <header class="topbar">
+        <div><p class="eyebrow">Social OS</p><h1 id="pageTitle">Build a micro social platform</h1></div>
+        <button id="saveSpace" class="primary">Save platform</button>
+      </header>
+
+      <section id="builder" class="view active-view">
+        <div class="grid two">
+          <article class="panel"><p class="eyebrow">Start fast</p><h2>Presets</h2><div id="presetGrid" class="card-grid"></div></article>
+          <article class="panel"><p class="eyebrow">Prompt builder</p><h2>Create from words</h2><textarea id="promptInput" placeholder="Build a private social platform for Valencia street photographers with no ads, gesture reactions, originality-first feed and cinematic aesthetic."></textarea><button id="promptBtn" class="secondary">Generate local config</button><p id="promptOutput" class="muted"></p></article>
         </div>
-      </div>
-      <div class="pill">Powered by VYBSTAK · The future belongs to creators</div>
-    </header>
+        <div class="grid four widgets" id="widgetGrid"></div>
+      </section>
 
-    <section class="hero-grid">
-      <article class="panel builder-panel">
-        <p class="eyebrow">Step 01</p>
-        <h2>Choose the foundation</h2>
-        <div class="preset-grid" id="presetGrid"></div>
-      </article>
-
-      <article class="panel prompt-panel">
-        <p class="eyebrow">Prompt Builder</p>
-        <h2>Describe the platform you want</h2>
-        <textarea id="promptInput" placeholder="Example: Create a private social platform for Valencia street photographers. No ads. Rank posts by originality and allow users to annotate photos."></textarea>
-        <button id="generateBtn" class="primary">Generate platform</button>
-        <p id="promptStatus" class="muted">Claude will convert your idea into platform settings when your API key is active.</p>
-      </article>
-    </section>
-
-    <section class="workbench">
-      <article class="panel controls-panel">
-        <p class="eyebrow">Step 02</p>
-        <h2>Large widgets</h2>
-        <div class="widget-stack">
-          <div class="widget-card active" data-widget="aesthetic">
-            <div><strong>Aesthetic Engine</strong><span id="aestheticLabel">Brutalist Creator OS</span></div>
-            <button class="mini" id="cycleAesthetic">Cycle</button>
-          </div>
-          <div class="widget-card" data-widget="feed"><div><strong>Feed Engine</strong><span id="feedLabel">Originality First</span></div></div>
-          <div class="widget-card" data-widget="interaction"><div><strong>Interaction Engine</strong><span id="interactionLabel">Gesture Wheel</span></div></div>
-          <div class="widget-card" data-widget="ads"><div><strong>Advertising</strong><span id="adsLabel">Off</span></div><button class="mini" id="toggleAds">Toggle</button></div>
+      <section id="platform" class="view">
+        <div class="platform-layout">
+          <article class="panel preview-card"><p class="eyebrow">Live micro-platform</p><h2 id="spaceName" contenteditable="true">Creator Signal Network</h2><p id="spaceDesc" contenteditable="true">A premium social space for creators who want honest reactions, creative responses and control over the feed.</p><div class="platform-meta"><span id="metaFeed">Originality First</span><span id="metaAesthetic">Brutalist</span><span id="metaAds">Ads Off</span></div><div id="feed" class="feed"></div></article>
+          <article class="panel phone"><div class="phone-top"><span id="phoneTitle">Creator Signal</span><span>LIVE</span></div><div id="phoneFeed" class="phone-feed"></div><footer>Powered by VYBSTAK<br><em>The future belongs to creators</em></footer></article>
         </div>
+      </section>
 
-        <div class="sliders">
-          <label>Originality <input id="originality" type="range" min="0" max="100" value="82" /></label>
-          <label>Discovery <input id="discovery" type="range" min="0" max="100" value="58" /></label>
-          <label>Calmness <input id="calmness" type="range" min="0" max="100" value="70" /></label>
-          <label>Community trust <input id="trust" type="range" min="0" max="100" value="75" /></label>
-        </div>
-      </article>
+      <section id="posts" class="view">
+        <div class="grid two"><article class="panel"><p class="eyebrow">Post Studio</p><h2>Create sample content</h2><input id="postTitle" placeholder="Post title" /><textarea id="postBody" placeholder="Write the post, campaign or creator drop..."></textarea><select id="postType"><option>Image</option><option>Video</option><option>Text</option><option>Poll</option><option>Drop</option></select><button id="addPost" class="primary">Add post</button></article><article class="panel"><p class="eyebrow">Interaction library</p><h2>Beyond likes</h2><div id="reactionLibrary" class="chip-grid"></div></article></div>
+      </section>
 
-      <article class="panel preview-panel">
-        <div class="preview-head">
-          <div>
-            <p class="eyebrow">Live Preview</p>
-            <h2 id="spaceName">Creator Signal Network</h2>
-            <p id="spaceDescription" class="muted">A premium micro platform for creators who want real feedback, not vanity metrics.</p>
-          </div>
-          <button id="saveBtn" class="primary">Launch space</button>
-        </div>
+      <section id="marketplace" class="view"><article class="panel"><p class="eyebrow">Template Marketplace</p><h2>Remixable platform templates</h2><div id="templateGrid" class="card-grid"></div></article></section>
 
-        <div class="phone-frame" id="phoneFrame">
-          <div class="space-top">
-            <span id="spaceBadge">Originality First</span>
-            <span id="spaceMode">No algorithmic manipulation</span>
-          </div>
-          <div class="post-surface" id="postSurface">
-            <div class="photo-stage">
-              <div class="photo-orb"></div>
-              <div class="photo-grid-lines"></div>
-              <div class="photo-caption">Tap image to open gesture wheel</div>
-            </div>
-            <div class="reaction-strip" id="reactionStrip"></div>
-          </div>
-          <footer class="powered">Powered by VYBSTAK<br><em>The future belongs to creators</em></footer>
-        </div>
-      </article>
-    </section>
+      <section id="export" class="view"><article class="panel"><p class="eyebrow">Export Centre</p><h2>Make it portable</h2><div class="export-box"><code id="exportJson"></code></div><button id="copyExport" class="secondary">Copy config JSON</button><p class="muted">Later this becomes custom domain, PWA export, white-label wrapper and native app packaging.</p></article></section>
+    </main>
+  </div>
 
-    <section class="panel saved-panel">
-      <p class="eyebrow">Saved builds</p>
-      <div id="savedSpaces" class="saved-grid"></div>
-    </section>
-  </main>
-
-  <div id="gestureWheel" class="gesture-wheel hidden" aria-hidden="true"></div>
-
+  <div id="gestureWheel" class="gesture-wheel hidden"></div>
   <script src="/app.js" type="module"></script>
 </body>
 </html>
