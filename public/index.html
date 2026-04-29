@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VYBSTAK Social OS Builder</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <canvas id="atmosphere"></canvas>
+
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand-lockup">
+        <div class="mark">V</div>
+        <div>
+          <p class="eyebrow">VYBSTAK OS</p>
+          <h1>Build your own social platform.</h1>
+        </div>
+      </div>
+      <div class="pill">Powered by VYBSTAK · The future belongs to creators</div>
+    </header>
+
+    <section class="hero-grid">
+      <article class="panel builder-panel">
+        <p class="eyebrow">Step 01</p>
+        <h2>Choose the foundation</h2>
+        <div class="preset-grid" id="presetGrid"></div>
+      </article>
+
+      <article class="panel prompt-panel">
+        <p class="eyebrow">Prompt Builder</p>
+        <h2>Describe the platform you want</h2>
+        <textarea id="promptInput" placeholder="Example: Create a private social platform for Valencia street photographers. No ads. Rank posts by originality and allow users to annotate photos."></textarea>
+        <button id="generateBtn" class="primary">Generate platform</button>
+        <p id="promptStatus" class="muted">Claude will convert your idea into platform settings when your API key is active.</p>
+      </article>
+    </section>
+
+    <section class="workbench">
+      <article class="panel controls-panel">
+        <p class="eyebrow">Step 02</p>
+        <h2>Large widgets</h2>
+        <div class="widget-stack">
+          <div class="widget-card active" data-widget="aesthetic">
+            <div><strong>Aesthetic Engine</strong><span id="aestheticLabel">Brutalist Creator OS</span></div>
+            <button class="mini" id="cycleAesthetic">Cycle</button>
+          </div>
+          <div class="widget-card" data-widget="feed"><div><strong>Feed Engine</strong><span id="feedLabel">Originality First</span></div></div>
+          <div class="widget-card" data-widget="interaction"><div><strong>Interaction Engine</strong><span id="interactionLabel">Gesture Wheel</span></div></div>
+          <div class="widget-card" data-widget="ads"><div><strong>Advertising</strong><span id="adsLabel">Off</span></div><button class="mini" id="toggleAds">Toggle</button></div>
+        </div>
+
+        <div class="sliders">
+          <label>Originality <input id="originality" type="range" min="0" max="100" value="82" /></label>
+          <label>Discovery <input id="discovery" type="range" min="0" max="100" value="58" /></label>
+          <label>Calmness <input id="calmness" type="range" min="0" max="100" value="70" /></label>
+          <label>Community trust <input id="trust" type="range" min="0" max="100" value="75" /></label>
+        </div>
+      </article>
+
+      <article class="panel preview-panel">
+        <div class="preview-head">
+          <div>
+            <p class="eyebrow">Live Preview</p>
+            <h2 id="spaceName">Creator Signal Network</h2>
+            <p id="spaceDescription" class="muted">A premium micro platform for creators who want real feedback, not vanity metrics.</p>
+          </div>
+          <button id="saveBtn" class="primary">Launch space</button>
+        </div>
+
+        <div class="phone-frame" id="phoneFrame">
+          <div class="space-top">
+            <span id="spaceBadge">Originality First</span>
+            <span id="spaceMode">No algorithmic manipulation</span>
+          </div>
+          <div class="post-surface" id="postSurface">
+            <div class="photo-stage">
+              <div class="photo-orb"></div>
+              <div class="photo-grid-lines"></div>
+              <div class="photo-caption">Tap image to open gesture wheel</div>
+            </div>
+            <div class="reaction-strip" id="reactionStrip"></div>
+          </div>
+          <footer class="powered">Powered by VYBSTAK<br><em>The future belongs to creators</em></footer>
+        </div>
+      </article>
+    </section>
+
+    <section class="panel saved-panel">
+      <p class="eyebrow">Saved builds</p>
+      <div id="savedSpaces" class="saved-grid"></div>
+    </section>
+  </main>
+
+  <div id="gestureWheel" class="gesture-wheel hidden" aria-hidden="true"></div>
+
+  <script src="/app.js" type="module"></script>
+</body>
+</html>
