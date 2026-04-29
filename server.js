@@ -3,6 +3,8 @@ import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
+import { nanoid } from "nanoid";
+import { createClient } from "@supabase/supabase-js";
 
 dotenv.config();
 
@@ -12,37 +14,65 @@ const dirname = path.dirname(filename);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY || "";
-const ANTHROPIC_MODEL = process.env.ANTHROPIC_MODEL || "claude-sonnet-4-20250514";
+const supabase = process.env.SUPABASE_URL
+  ? createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY)
+  : null;
+
+let localSpaces = [];
 
 app.use(cors());
-app.use(express.json({ limit: "4mb" }));
+app.use(express.json());
 app.use(express.static(path.join(dirname, "public")));
 
-function cleanText(value) {
-  return String(value || "").replace(/[<>]/g, "").slice(0, 3000);
-}
-
-app.get("/api/health", function (_req, res) {
-  res.json({ status: "alive" });
+app.get("/api/health", (_req, res) => {
+  res.json({ status: "alive", supabase: !!supabase });
 });
 
-app.post("/api/claude", async function (req, res) {
-  const body = req.body || {};
-  const task = cleanText(body.task || "");
-  const input = cleanText(body.input || "");
+app.post("/api/spaces", async (req, res) => {
+  const space = {
+    id: nanoid(),
+    name: req.body.name || "Untitled Space",
+    config: req.body.config || {},
+    createdAt: new Date().toISOString()
+  };
 
-  if(task==="space-builder"){
-    return res.json({success:true,text:`Platform idea:\n${input}\n\nFeed: originality first\nAds: off\nInteractions: gesture wheel\nAesthetic: cinematic`});
+  if (supabase) {
+    await supabase.from("spaces").insert(space);
+  } else {
+    localSpaces.push(space);
   }
 
-  return res.json({success:true,text:"OK"});
+  res.json(space);
 });
 
-app.get("/", function (_req, res) {
+app.get("/api/spaces", async (_req, res) => {
+  if (supabase) {
+    const { data } = await supabase.from("spaces").select("*");
+    return res.json(data);
+  }
+
+  res.json(localSpaces);
+});
+
+app.post("/api/claude", async (req, res) => {
+  const input = req.body.input || "";
+
+  res.json({
+    config: {
+      name: "Generated Space",
+      feed: "originality",
+      ads: false,
+      interaction: "gesture",
+      aesthetic: "cinematic"
+    },
+    text: `Generated from: ${input}`
+  });
+});
+
+app.get("/", (_req, res) => {
   res.sendFile(path.join(dirname, "public", "index.html"));
 });
 
-app.listen(PORT, function () {
+app.listen(PORT, () => {
   console.log("VYBSTAK OS running on port " + PORT);
 });
